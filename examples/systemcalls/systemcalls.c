@@ -1,10 +1,12 @@
 #include "systemcalls.h"
 #include <stdlib.h>
-#include <stdio>
-#include <unistd>
-#include <sys/type.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <string.h>
-#include <iostream.h>
+#include <stdarg.h>
+#include <fcntl.h>
 
 /**
  * @param cmd the command to execute with system()
@@ -68,7 +70,7 @@ bool do_exec(int count, ...)
 	}
 	else
 	{
-		waitpid(childpid, &child_status, 0);
+		waitpid(child_pid, &child_status, 0);
 		va_end(args);
 		return WIFEXITED(child_status) && WEXITSTATUS(child_status) == 0;
 	}	
